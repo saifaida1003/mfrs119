@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MFRS 119 Master: Employee Benefits</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .card-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Header -->
+    <header class="card-gradient text-white py-8 px-4 shadow-lg">
+        <div class="max-w-5xl mx-auto">
+            <h1 class="text-3xl font-bold mb-2"><i class="fas fa-book-open mr-3"></i>MFRS 119: Employee Benefits</h1>
+            <p class="opacity-90">An interactive guide to mastering recognition, measurement, and disclosure for accounting exams.</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-10">
+        <div class="max-w-5xl mx-auto flex overflow-x-auto">
+            <button onclick="showTab('facts')" class="tab-btn px-6 py-4 font-semibold text-indigo-600 border-b-2 border-indigo-600 hover:bg-indigo-50 transition">Facts Navigator</button>
+            <button onclick="showTab('calculator')" class="tab-btn px-6 py-4 font-semibold text-gray-500 hover:text-indigo-600 transition">DB Simulator</button>
+            <button onclick="showTab('quiz')" class="tab-btn px-6 py-4 font-semibold text-gray-500 hover:text-indigo-600 transition">Exam Quiz</button>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto p-4 md:p-8">
+
+        <!-- FACTS NAVIGATOR -->
+        <div id="facts" class="tab-content active space-y-6">
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Short Term -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-500">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3"><i class="fas fa-clock text-green-500 mr-2"></i>Short-Term Benefits</h3>
+                    <ul class="text-gray-600 space-y-2 list-disc ml-5">
+                        <li>Payable within 12 months after the end of the period.</li>
+                        <li>Wages, salaries, social security, paid annual leave.</li>
+                        <li><strong>Accounting:</strong> Recognise as an expense (unless capitalized) and a liability (accrued).</li>
+                    </ul>
+                </div>
+                <!-- Post Employment -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3"><i class="fas fa-umbrella text-blue-500 mr-2"></i>Post-Employment Benefits</h3>
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-3 rounded">
+                            <p class="font-bold text-blue-800 text-sm">Defined Contribution (DC)</p>
+                            <p class="text-xs text-blue-600">Entity pays fixed contributions. Risk lies with employee. Easy accounting!</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded">
+                            <p class="font-bold text-purple-800 text-sm">Defined Benefit (DB)</p>
+                            <p class="text-xs text-purple-600">Entity's obligation is to provide agreed benefits. Actuarial/Investment risk lies with entity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 p-6 rounded-xl border border-amber-200">
+                <h3 class="text-lg font-bold text-amber-800 mb-2">💡 Exam Tip: Remeasurements</h3>
+                <p class="text-amber-900">Under MFRS 119, <strong>Remeasurements</strong> (actuarial gains/losses) for DB plans must be recognised in <strong>Other Comprehensive Income (OCI)</strong> and <u>never</u> reclassified to P&L!</p>
+            </div>
+        </div>
+
+        <!-- DB SIMULATOR -->
+        <div id="calculator" class="tab-content space-y-6">
+            <div class="bg-white p-8 rounded-xl shadow-md">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Defined Benefit Component Calculator</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <label class="block">
+                            <span class="text-gray-700 font-medium text-sm uppercase">Current Service Cost ($)</span>
+                            <input type="number" id="serviceCost" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border outline-indigo-500" value="50000">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700 font-medium text-sm uppercase">PV of Obligation (Opening) ($)</span>
+                            <input type="number" id="openingPV" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border outline-indigo-500" value="400000">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700 font-medium text-sm uppercase">FV of Plan Assets (Opening) ($)</span>
+                            <input type="number" id="openingFV" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border outline-indigo-500" value="350000">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700 font-medium text-sm uppercase">Discount Rate (%)</span>
+                            <input type="number" id="discountRate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border outline-indigo-500" value="5">
+                        </label>
+                    </div>
+
+                    <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100">
+                        <h4 class="font-bold text-indigo-800 mb-4 uppercase text-sm tracking-widest">Live Result</h4>
+                        <div id="calcResults" class="space-y-4">
+                            <div class="flex justify-between border-b pb-2">
+                                <span>Net Interest Cost (P&L):</span>
+                                <span class="font-bold" id="netInterestDisplay">$0</span>
+                            </div>
+                            <div class="flex justify-between border-b pb-2">
+                                <span>Total Expense in P&L:</span>
+                                <span class="font-bold text-red-600" id="totalPandLDisplay">$0</span>
+                            </div>
+                            <div class="bg-white p-3 rounded shadow-inner mt-4">
+                                <p class="text-xs text-gray-500">Note: Net interest is (Opening PV - Opening FV) × Discount Rate.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="calculateDB()" class="mt-8 w-full bg-indigo-600 text-white py-4 rounded-lg font-bold hover:bg-indigo-700 transition shadow-lg">CALCULATE COMPONENTS</button>
+            </div>
+        </div>
+
+        <!-- EXAM QUIZ -->
+        <div id="quiz" class="tab-content space-y-6">
+            <div id="quizContainer" class="bg-white p-8 rounded-xl shadow-md max-w-2xl mx-auto">
+                <div id="questionArea">
+                    <span id="qNumber" class="text-indigo-600 font-bold">Question 1 of 3</span>
+                    <h2 id="questionText" class="text-xl font-bold text-gray-800 mt-2 mb-6">Which of the following is recognized in OCI under MFRS 119?</h2>
+                    <div id="options" class="space-y-3">
+                        <!-- Options injected by JS -->
+                    </div>
+                </div>
+                <div id="feedback" class="mt-6 p-4 rounded hidden"></div>
+                <button id="nextBtn" onclick="nextQuestion()" class="mt-6 hidden w-full bg-gray-800 text-white py-3 rounded-lg font-semibold hover:bg-black transition">Next Question</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // TAB LOGIC
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('text-indigo-600', 'border-indigo-600', 'border-b-2');
+                btn.classList.add('text-gray-500');
+            });
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('text-indigo-600', 'border-indigo-600', 'border-b-2');
+            event.target.classList.remove('text-gray-500');
+        }
+
+        // CALCULATOR LOGIC
+        function calculateDB() {
+            const sc = parseFloat(document.getElementById('serviceCost').value) || 0;
+            const opv = parseFloat(document.getElementById('openingPV').value) || 0;
+            const ofv = parseFloat(document.getElementById('openingFV').value) || 0;
+            const dr = (parseFloat(document.getElementById('discountRate').value) || 0) / 100;
+
+            const netInterest = (opv - ofv) * dr;
+            const totalPL = sc + netInterest;
+
+            document.getElementById('netInterestDisplay').innerText = '$' + netInterest.toLocaleString();
+            document.getElementById('totalPandLDisplay').innerText = '$' + totalPL.toLocaleString();
+        }
+
+        // QUIZ LOGIC
+        const quizData = [
+            {
+                q: "Which of the following components of Defined Benefit costs is recognized in Other Comprehensive Income (OCI)?",
+                options: ["Current Service Cost", "Net Interest on Net DB Liability", "Remeasurements (Actuarial Gains/Losses)", "Past Service Cost"],
+                correct: 2,
+                reason: "MFRS 119 states that remeasurements, which include actuarial gains and losses, must be recognized in OCI and are not reclassified to profit or loss."
+            },
+            {
+                q: "What is the accounting treatment for Short-term Employee Benefits?",
+                options: ["Discount to present value", "Recognize at undiscounted amount", "Recognize in OCI only", "Amortize over 5 years"],
+                correct: 1,
+                reason: "Short-term benefits are expected to be settled within 12 months, hence they are recognized at an undiscounted amount."
+            },
+            {
+                q: "In a Defined Contribution (DC) plan, who bears the actuarial and investment risk?",
+                options: ["The Employer", "The Employee", "The Government", "The Insurance Company"],
+                correct: 1,
+                reason: "In a DC plan, the entity's obligation is limited to the contribution. The employee bears the risk if the fund underperforms."
+            }
+        ];
+
+        let currentQ = 0;
+
+        function loadQuiz() {
+            const data = quizData[currentQ];
+            document.getElementById('qNumber').innerText = `Question ${currentQ + 1} of ${quizData.length}`;
+            document.getElementById('questionText').innerText = data.q;
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            
+            data.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-lg border border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 transition flex items-center";
+                btn.innerHTML = `<span class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3 text-sm font-bold">${String.fromCharCode(65 + index)}</span> ${opt}`;
+                btn.onclick = () => checkAnswer(index);
+                optionsDiv.appendChild(btn);
+            });
+            document.getElementById('feedback').classList.add('hidden');
+            document.getElementById('nextBtn').classList.add('hidden');
+        }
+
+        function checkAnswer(idx) {
+            const feedback = document.getElementById('feedback');
+            const correct = quizData[currentQ].correct;
+            feedback.classList.remove('hidden');
+            
+            if(idx === correct) {
+                feedback.className = "mt-6 p-4 rounded bg-green-100 text-green-800 border border-green-200";
+                feedback.innerHTML = `<strong>✅ Correct!</strong><br>${quizData[currentQ].reason}`;
+            } else {
+                feedback.className = "mt-6 p-4 rounded bg-red-100 text-red-800 border border-red-200";
+                feedback.innerHTML = `<strong>❌ Incorrect.</strong><br>${quizData[currentQ].reason}`;
+            }
+            document.getElementById('nextBtn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQ++;
+            if(currentQ < quizData.length) {
+                loadQuiz();
+            } else {
+                document.getElementById('quizContainer').innerHTML = `
+                    <div class="text-center py-10">
+                        <i class="fas fa-trophy text-6xl text-yellow-500 mb-4"></i>
+                        <h2 class="text-3xl font-bold">Excellent Work!</h2>
+                        <p class="text-gray-600 mt-2">You have completed the MFRS 119 Essentials Quiz.</p>
+                        <button onclick="location.reload()" class="mt-6 bg-indigo-600 text-white px-8 py-3 rounded-full font-bold">Restart Tool</button>
+                    </div>
+                `;
+            }
+        }
+
+        window.onload = () => {
+            calculateDB();
+            loadQuiz();
+        };
+    </script>
+</body>
+</html>
